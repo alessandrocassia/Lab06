@@ -28,4 +28,14 @@ class Controller:
         self._view.update()
 
     # Altre Funzioni Event Handler
-    # TODO
+    def mostraStrumenti(self, e):
+        self._view.lista_strumenti.controls.clear()
+
+        lista_nuova = self._model.get_strumenti() #chiamo la funzione del model per prendere gli strumenti
+        for strumento in lista_nuova:
+            testo_strumento = ft.Text(str(strumento))
+            self._view.lista_strumenti.controls.append(testo_strumento)
+
+        self._view.update()
+
+

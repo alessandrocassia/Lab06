@@ -35,7 +35,22 @@ class DepositoStrumenti:
             Funzione che legge tutti gli strumenti nel database
             :return: una lista con tutti gli strumenti presenti oppure None
         """
-        # TODO
+        cnx = get_connection()
+        cursore = cnx.cursor()
+
+        query = """ SELECT *
+                    FROM strumento """
+        cursore.execute(query)
+
+        lista_strumenti = []
+        for riga in cursore:
+            s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
+            lista_strumenti.append(s)
+
+        cursore.close()
+        cnx.close()
+        return lista_strumenti
+
 
     def cerca_strumenti_per_tipo(self, tipo) -> list[Strumento] | None:
         """

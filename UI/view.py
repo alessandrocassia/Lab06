@@ -82,7 +82,10 @@ class View:
             ft.Divider(),
 
             # Sezione 3
-            # TODO
+            ft.Text(value = "Strumenti", size = 30, weight=ft.FontWeight.W_500),
+            ft.Button(content = "Mostra", on_click = self.controller.mostraStrumenti), #potremmo aggiungerli a una riga
+            self.lista_strumenti,
+
 
             # Sezione 4
             # TODO
