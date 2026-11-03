@@ -32,19 +32,36 @@ class Controller:
         self._view.lista_strumenti.controls.clear()
 
         lista_nuova = self._model.get_strumenti() #chiamo la funzione del model per prendere gli strumenti
-        for strumento in lista_nuova:
-            testo_strumento = ft.Text(str(strumento))
-            self._view.lista_strumenti.controls.append(testo_strumento)
+        if lista_nuova is None:
+            self._view.show_alert("Attenzione, qualcosa è andato storto nella ricerca degli strumenti")
+
+        else:
+            for strumento in lista_nuova:
+                testo_strumento = ft.Text(str(strumento))
+                self._view.lista_strumenti.controls.append(testo_strumento)
 
         self._view.update()
 
     def cercaPerTipo(self, e):
         self._view.lista_strumenti_ricerca.controls.clear()
+        tipo_ricerca = self._view.input_tipo_strumento.value
 
-        lista_nuova_ricerca = self._model.cerca_strumenti_per_tipo(self._view.input_tipo_strumento.value)
-        for strumento in lista_nuova_ricerca:
-            testo_strumento_ricerca = ft.Text(str(strumento))
-            self._view.lista_strumenti_ricerca.controls.append(testo_strumento_ricerca)
+        if not tipo_ricerca or tipo_ricerca.strip() == "":
+            self._view.show_alert("Inserire un tipo strumento valido!")
+            self._view.update()
+            return None
+
+        lista_nuova_ricerca = self._model.cerca_strumenti_per_tipo(tipo_ricerca)
+        if lista_nuova_ricerca is None:
+            self._view.show_alert("Attenzione, qualcosa è andato storto nella ricerca degli strumenti per tipo")
+
+        elif len(lista_nuova_ricerca) == 0:
+            self._view.show_alert("Non è stato trovato nessuno strumento del tipo inserito")
+
+        else:
+            for strumento in lista_nuova_ricerca:
+                testo_strumento_ricerca = ft.Text(str(strumento))
+                self._view.lista_strumenti_ricerca.controls.append(testo_strumento_ricerca)
 
         self._view.update()
 

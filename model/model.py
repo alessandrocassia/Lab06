@@ -36,20 +36,23 @@ class DepositoStrumenti:
             :return: una lista con tutti gli strumenti presenti oppure None
         """
         cnx = get_connection()
-        cursore = cnx.cursor()
+        if cnx is None:
+            return None
+        else:
+            cursore = cnx.cursor()
 
-        query = """ SELECT *
-                    FROM strumento """
-        cursore.execute(query)
+            query = """ SELECT *
+                        FROM strumento """
+            cursore.execute(query)
 
-        lista_strumenti = []
-        for riga in cursore:
-            s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
-            lista_strumenti.append(s)
+            lista_strumenti = []
+            for riga in cursore:
+                s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
+                lista_strumenti.append(s)
 
-        cursore.close()
-        cnx.close()
-        return lista_strumenti
+            cursore.close()
+            cnx.close()
+            return lista_strumenti
 
 
     def cerca_strumenti_per_tipo(self, tipo) -> list[Strumento] | None:
@@ -59,19 +62,23 @@ class DepositoStrumenti:
             :return: una lista con tutti gli strumenti del tipo indicato oppure None
         """
         cnx = get_connection()
-        cursore = cnx.cursor()
-        query = """
-                SELECT *
-                FROM strumento
-                WHERE tipo = %s
-                """
+        if cnx is None:
+            return None
+        else:
 
-        cursore.execute(query, (tipo,))
-        lista_strumenti_cerca = []
-        for riga in cursore:
-            s =  s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
-            lista_strumenti_cerca.append(s)
+            cursore = cnx.cursor()
+            query = """
+                    SELECT *
+                    FROM strumento
+                    WHERE tipo = %s
+                    """
 
-        cursore.close()
-        cnx.close()
-        return lista_strumenti_cerca
+            cursore.execute(query, (tipo,))
+            lista_strumenti_cerca = []
+            for riga in cursore:
+                s = s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
+                lista_strumenti_cerca.append(s)
+
+            cursore.close()
+            cnx.close()
+            return lista_strumenti_cerca
