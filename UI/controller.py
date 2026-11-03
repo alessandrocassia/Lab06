@@ -38,4 +38,15 @@ class Controller:
 
         self._view.update()
 
+    def cercaPerTipo(self, e):
+        self._view.lista_strumenti_ricerca.controls.clear()
+
+        lista_nuova_ricerca = self._model.cerca_strumenti_per_tipo(self._view.input_tipo_strumento.value)
+        for strumento in lista_nuova_ricerca:
+            testo_strumento_ricerca = ft.Text(str(strumento))
+            self._view.lista_strumenti_ricerca.controls.append(testo_strumento_ricerca)
+
+        self._view.update()
+
+
 

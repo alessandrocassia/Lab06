@@ -1,4 +1,6 @@
 import flet as ft
+from flet import MainAxisAlignment
+
 from UI.alert import AlertManager
 
 '''
@@ -63,7 +65,21 @@ class View:
         pulsante_conferma_responsabile = ft.Button("Conferma", on_click=self.controller.conferma_responsabile)
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
-        # TODO
+        pulsante_mostra = ft.Button(content = "Mostra", on_click = self.controller.mostraStrumenti) #MOSTRA
+        pulsante_cpt = ft.Button(content = "Cerca", on_click = self.controller.cercaPerTipo) #CERCA PER TIPO
+
+
+        #RIGHE
+        riga3 = ft.Row([ft.Text(value = "Strumenti",
+                                size = 20),
+                        pulsante_mostra],
+                        alignment=ft.MainAxisAlignment.CENTER)
+
+        riga4 = ft.Row([ft.Text(value = "Cerca strumento per tipo",
+                                size = 20,),
+                        self.input_tipo_strumento,
+                        pulsante_cpt],
+                        alignment = ft.MainAxisAlignment.CENTER)
 
         # --- LAYOUT ---
         self.page.add(
@@ -82,13 +98,14 @@ class View:
             ft.Divider(),
 
             # Sezione 3
-            ft.Text(value = "Strumenti", size = 30, weight=ft.FontWeight.W_500),
-            ft.Button(content = "Mostra", on_click = self.controller.mostraStrumenti), #potremmo aggiungerli a una riga
+            riga3,
             self.lista_strumenti,
+            ft.Divider(),
 
 
             # Sezione 4
-            # TODO
+            riga4,
+            self.lista_strumenti_ricerca,
         )
 
     def cambia_tema(self, e):
