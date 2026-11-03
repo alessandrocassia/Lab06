@@ -76,7 +76,7 @@ class DepositoStrumenti:
             cursore.execute(query, (tipo,))
             lista_strumenti_cerca = []
             for riga in cursore:
-                s = s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
+                s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
                 lista_strumenti_cerca.append(s)
 
             cursore.close()

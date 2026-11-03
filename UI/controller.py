@@ -46,7 +46,7 @@ class Controller:
         self._view.lista_strumenti_ricerca.controls.clear()
         tipo_ricerca = self._view.input_tipo_strumento.value
 
-        if not tipo_ricerca or tipo_ricerca.strip() == "":
+        if not tipo_ricerca or tipo_ricerca.strip() == "" or tipo_ricerca.isdgit():
             self._view.show_alert("Inserire un tipo strumento valido!")
             self._view.update()
             return None
